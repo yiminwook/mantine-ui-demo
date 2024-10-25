@@ -1,5 +1,7 @@
 "use client";
+import { theme } from "@/styles/theme";
 import { AppShellHeader, Burger, Button, Flex, Text } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 
 type AppHeaderProps = {
   isShowNav: boolean;
@@ -7,6 +9,8 @@ type AppHeaderProps = {
 };
 
 export default function AppHeader({ isShowNav, toggleNav }: AppHeaderProps) {
+  // const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints?.sm})`);
+
   return (
     <AppShellHeader>
       <Flex
@@ -19,7 +23,7 @@ export default function AppHeader({ isShowNav, toggleNav }: AppHeaderProps) {
         }}
       >
         <Flex style={{ alignItems: "center" }}>
-          <Burger opened={isShowNav} onClick={toggleNav} size="sm" mr={4} />
+          <Burger opened={false} onClick={toggleNav} size="sm" mr={4} />
           <Text component="h1">Logo</Text>
         </Flex>
         <Button variant="light" size="sm">
