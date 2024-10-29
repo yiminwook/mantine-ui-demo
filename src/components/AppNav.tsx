@@ -1,5 +1,5 @@
 import { AppShellNavbar, NavLink } from "@mantine/core";
-import { IconGauge, IconFingerprint } from "@tabler/icons-react";
+import { IconFingerprint, IconGauge } from "@tabler/icons-react";
 import Link from "next/link";
 
 export default function AppNav() {

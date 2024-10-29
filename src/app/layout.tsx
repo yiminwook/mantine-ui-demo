@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { ColorSchemeScript } from "@mantine/core";
-import { MantineProvider } from "@mantine/core";
-import { theme } from "../styles/theme";
-import "@mantine/core/styles.css";
+import "@/styles/theme.scss";
+import "@/styles/global.scss";
+import MantineProvider from "@/components/MantineProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,7 +23,7 @@ export default function RootLayout({
     // https://github.com/mantinedev/mantine/issues/7008
     <html lang="ko" suppressHydrationWarning>
       <head>
-        <ColorSchemeScript />
+        <ColorSchemeScript defaultColorScheme="light" />
         <link
           rel="stylesheet"
           as="style"
@@ -31,7 +31,7 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <MantineProvider theme={theme}>{children}</MantineProvider>
+        <MantineProvider defaultColorScheme="light">{children}</MantineProvider>
       </body>
     </html>
   );
