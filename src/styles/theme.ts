@@ -6,6 +6,7 @@ import {
   isMantineColorScheme,
   MantineColorScheme,
   MantineColorSchemeManager,
+  LocalStorageColorSchemeManagerOptions,
 } from "@mantine/core";
 
 export const theme = createTheme({
@@ -62,57 +63,55 @@ export interface ColorSchemeManagerOptions {
   key?: string;
 }
 
-export class ColorSchemeManager implements MantineColorSchemeManager {
-  key: string;
-  handleStorageEvent: (event: StorageEvent) => void = () => {};
+export function colorSchemeManager({
+  key = COLOR_SCHEME_KEY,
+}: LocalStorageColorSchemeManagerOptions = {}): MantineColorSchemeManager {
+  let handleStorageEvent: (event: StorageEvent) => void;
 
-  constructor({ key = COLOR_SCHEME_KEY }: ColorSchemeManagerOptions = {}) {
-    this.key = key;
-  }
-
-  get(defaultValue: MantineColorScheme) {
-    if (typeof window === "undefined") {
-      return defaultValue;
-    }
-
-    try {
-      return (
-        (window.localStorage.getItem(this.key) as MantineColorScheme) ||
-        defaultValue
-      );
-    } catch {
-      return defaultValue;
-    }
-  }
-
-  set(value: MantineColorScheme) {
-    try {
-      window.localStorage.setItem(this.key, value);
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        "[@mantine/core] Local storage color scheme manager was unable to save color scheme.",
-        error
-      );
-    }
-  }
-
-  subscribe(onUpdate: (colorScheme: MantineColorScheme) => void) {
-    this.unsubscribe();
-    this.handleStorageEvent = (event) => {
-      if (event.storageArea === window.localStorage && event.key === this.key) {
-        isMantineColorScheme(event.newValue) && onUpdate(event.newValue);
+  return {
+    get: (defaultValue) => {
+      if (typeof window === "undefined") {
+        return defaultValue;
       }
-    };
 
-    window.addEventListener("storage", this.handleStorageEvent);
-  }
+      try {
+        return (
+          (window.localStorage.getItem(key) as MantineColorScheme) ||
+          defaultValue
+        );
+      } catch {
+        return defaultValue;
+      }
+    },
 
-  unsubscribe() {
-    window.removeEventListener("storage", this.handleStorageEvent);
-  }
+    set: (value) => {
+      try {
+        window.localStorage.setItem(key, value);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          "[@mantine/core] Local storage color scheme manager was unable to save color scheme.",
+          error
+        );
+      }
+    },
 
-  clear() {
-    window.localStorage.removeItem(this.key);
-  }
+    subscribe: (onUpdate) => {
+      handleStorageEvent = (event) => {
+        if (event.storageArea === window.localStorage && event.key === key) {
+          isMantineColorScheme(event.newValue) && onUpdate(event.newValue);
+        }
+      };
+
+      window.addEventListener("storage", handleStorageEvent);
+    },
+
+    unsubscribe: () => {
+      window.removeEventListener("storage", handleStorageEvent);
+    },
+
+    clear: () => {
+      window.localStorage.removeItem(key);
+    },
+  };
 }

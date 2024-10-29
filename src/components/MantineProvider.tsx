@@ -1,9 +1,10 @@
 "use client";
-import { ColorSchemeManager, theme } from "@/styles/theme";
+import { COLOR_SCHEME_KEY } from "@/consts";
+import { colorSchemeManager, theme } from "@/styles/theme";
 import { MantineProvider as Provider } from "@mantine/core";
 
-const manager = new ColorSchemeManager({
-  key: "my-app-color-scheme",
+const manager = colorSchemeManager({
+  key: COLOR_SCHEME_KEY,
 });
 
 interface MantineProviderProps {
