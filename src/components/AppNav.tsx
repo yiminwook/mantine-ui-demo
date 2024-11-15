@@ -1,11 +1,13 @@
 import { AppShellNavbar, NavLink } from "@mantine/core";
 import { IconFingerprint, IconGauge } from "@tabler/icons-react";
 import Link from "next/link";
+import module from "./appNav.module.scss";
 
 export default function AppNav() {
   return (
     <AppShellNavbar p="sm">
       <NavLink
+        className={module.link}
         href="#required-for-focus"
         label="First parent link"
         leftSection={<IconGauge size="1rem" stroke={1.5} />}
