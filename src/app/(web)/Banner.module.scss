@@ -1,0 +1,32 @@
+.banner {
+  .item {
+  }
+
+  .imgBox {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+
+    a {
+      user-select: none;
+
+      img {
+        transition: transform 0.2s ease;
+
+        &:hover {
+          transform: scale(1.05); /* 이미지 확대 모션 */
+        }
+      }
+    }
+  }
+
+  .textOneLine {
+    @include util.text-line(1.2, 1);
+    cursor: grab;
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 16px;
+  }
+}

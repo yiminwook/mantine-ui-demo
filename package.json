@@ -31,7 +31,8 @@
     "next": "15.0.1",
     "react": "19.0.0-rc-69d4b800-20241021",
     "react-dom": "19.0.0-rc-69d4b800-20241021",
-    "recharts": "2"
+    "recharts": "2",
+    "swiper": "^11.1.15"
   },
   "devDependencies": {
     "@types/node": "^20",

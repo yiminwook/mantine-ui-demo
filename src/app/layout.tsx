@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { ColorSchemeScript } from "@mantine/core";
+import "@/styles/swiper/core.scss";
+import "@/styles/swiper/pagination.scss";
 import "@/styles/theme.scss";
 import "@/styles/global.scss";
 import MantineProvider from "@/components/MantineProvider";
